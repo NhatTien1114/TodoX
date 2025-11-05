@@ -29,12 +29,14 @@ const HomePage = () => {
   const fetchTasks = async () => {
     try {
       const res = await api.get(`/tasks?filter=${dateQuery}`);
-      setTaskBuffer(res.data.tasks);
+      setTaskBuffer(res.data.tasks || []);
       setActiveTaskCount(res.data.activeCount);
       setCompleteTaskCount(res.data.completeCount);
     } catch (error) {
       console.error("Lỗi xảy ra khi truy xuất tasks:", error);
       toast.error("Lỗi xảy ra khi truy xuất tasks");
+
+      setTaskBuffer([]);
     }
   }
 
